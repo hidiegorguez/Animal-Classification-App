@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Image recognition with CNN</title>
+</head>
+<body>
+    <h1>Image recognition with CNN</h1>
+    <form name="Image-upload" action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="archivo">
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
+    {% if fileupload %}
+    <img src="/upload/{{image_filename}}" width="200" height="200">
+    <table>
+        <tr>
+            <th>Animal</th>
+            <th>Seguridad</th>
+        </tr>
+        {% for name,score in data.items()%}
+        <tr>
+            <th>{{name}}</th>
+            <th>{{score}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
