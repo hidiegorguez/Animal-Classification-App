@@ -29,10 +29,6 @@ This project aims to develop an application that can accurately identify the ani
 
 Contributions, bug reports, and feature requests are welcome. This project is ongoing, and collaborative efforts will help improve its functionality and scope.
 
-## Note
-
-The content and comments within this project are primarily in Spanish.
-
 ## Connect
 
 Feel free to reach out for more information, potential collaborations, or any inquiries related to this project.
