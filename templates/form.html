@@ -1,27 +1,90 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Image recognition with CNN</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recognition with CNN</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .custom-file-label::after {
+            content: "Buscar";
+        }
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 10px auto;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .table th, .table td {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Image recognition with CNN</h1>
-    <form name="Image-upload" action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="archivo">
-        <input type="submit" value="Upload Image" name="submit">
-    </form>
-    {% if fileupload %}
-    <img src="/upload/{{image_filename}}" width="200" height="200">
-    <table>
-        <tr>
-            <th>Animal</th>
-            <th>Seguridad</th>
-        </tr>
-        {% for name,score in data.items()%}
-        <tr>
-            <th>{{name}}</th>
-            <th>{{score}}</th>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
+    <div class="header">
+        <h1>Detección de Animales con CNN</h1>
+        <p>Sube una imagen para predecir el animal</p>
+    </div>
+
+    <div class="container">
+        <form name="Image-upload" action="/upload" method="POST" enctype="multipart/form-data" class="mb-4">
+            <div class="custom-file mb-3">
+                <input type="file" class="custom-file-input" id="archivo" name="archivo" required>
+                <label class="custom-file-label" for="archivo">Seleccionar Imagen...</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Subir Imagen</button>
+        </form>
+
+        {% if fileupload %}
+        <div class="text-center">
+            <h4>Imagen Subida</h4>
+            <img src="{{ url_for('static', filename='upload/' + image_filename) }}" class="image-preview" alt="Imagen Cargada">
+        </div>
+
+        <h4 class="mt-4">Resultados de Predicción</h4>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Animal</th>
+                    <th>Confianza</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for name, score in data.items() %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $('.custom-file-input').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+        });
+    </script>
 </body>
 </html>
