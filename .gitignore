@@ -1,2 +1,4 @@
 model/
 model.h5
+.env
+.venv
