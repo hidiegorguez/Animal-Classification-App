@@ -22,7 +22,7 @@ This project aims to develop an application that can accurately identify the ani
 
 1. Clone the repository to your local machine.
 2. Install required libraries using `pip install -r requirements.txt`.
-3. Run `animal_classification.ipynb` to train the model.
+3. Run `animal_classification.ipynb` to train and save the model.
 4. Execute `app_flask.ipynb` to start the Flask server and interact with the model.
 
 ## Contribute
