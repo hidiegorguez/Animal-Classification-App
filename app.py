@@ -6,7 +6,7 @@ import skimage.transform
 import pickle
 import tensorflow as tf
 import tensorflow_hub as hub
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, send_from_directory
 
 # Configuración de Flask
 app = Flask(__name__)
@@ -28,7 +28,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
 def index():
-    return render_template('form.html')
+    return render_template('form.html', fileupload=False)
 
 @app.route('/upload', methods=['POST'])
 def uploader():
@@ -44,6 +44,10 @@ def uploader():
             return render_template('form.html', fileupload=True, data=results, image_filename=filename)
         return '<h1>Only JPEG, JPG, and PNG files allowed</h1>'
     return '<h1>Only POST methods allowed</h1>'
+
+@app.route('/upload/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 def model_pipeline(file_path, mapping, model):
     img = plt.imread(file_path)

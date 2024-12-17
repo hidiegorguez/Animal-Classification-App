@@ -1,0 +1,39 @@
+/* styles.css */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.container {
+    margin-top: 20px;
+}
+.custom-file-label::after {
+    content: "Browse";
+}
+.content-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+.image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.table-container {
+    max-width: 500px;
+}
+.table th,
+.table td {
+    text-align: center;
+}

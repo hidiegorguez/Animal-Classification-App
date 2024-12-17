@@ -1,78 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Recognition with CNN</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            background-color: #007bff;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            margin-top: 20px;
-        }
-        .custom-file-label::after {
-            content: "Buscar";
-        }
-        .image-preview {
-            max-width: 100%;
-            max-height: 400px;
-            display: block;
-            margin: 10px auto;
-            border: 2px solid #dee2e6;
-            border-radius: 5px;
-        }
-        .table th, .table td {
-            text-align: center;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Animal Detection with CNN</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    </head>    
 <body>
+    <!-- Header -->
     <div class="header">
-        <h1>Detección de Animales con CNN</h1>
-        <p>Sube una imagen para predecir el animal</p>
+        <h1>Animal Detection with CNN</h1>
+        <p>Upload an image to predict the animal</p>
     </div>
 
+    <!-- Form -->
     <div class="container">
-        <form name="Image-upload" action="/upload" method="POST" enctype="multipart/form-data" class="mb-4">
-            <div class="custom-file mb-3">
+        <form name="Image-upload" action="/upload" method="POST" enctype="multipart/form-data" class="mb-4 text-center">
+            <div class="custom-file mb-3" style="max-width: 400px; margin: auto;">
                 <input type="file" class="custom-file-input" id="archivo" name="archivo" required>
-                <label class="custom-file-label" for="archivo">Seleccionar Imagen...</label>
+                <label class="custom-file-label" for="archivo">Select an image...</label>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Subir Imagen</button>
+            <button type="submit" class="btn btn-primary">Evaluate</button>
         </form>
 
         {% if fileupload %}
-        <div class="text-center">
-            <h4>Imagen Subida</h4>
-            <img src="{{ url_for('static', filename='upload/' + image_filename) }}" class="image-preview" alt="Imagen Cargada">
-        </div>
+        <!-- Image and prediction table -->
+        <div class="content-row">
+            <!-- Image -->
+            <div>
+                <img src="/upload/{{ image_filename }}" class="image-preview" alt="Uploaded Image">
+            </div>
 
-        <h4 class="mt-4">Resultados de Predicción</h4>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Animal</th>
-                    <th>Confianza</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for name, score in data.items() %}
-                <tr>
-                    <td>{{ name }}</td>
-                    <td>{{ score }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+            <!-- Table -->
+            <div class="table-container">
+                <h4>Prediction Results</h4>
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Animal</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, score in data.items() %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ score }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
         {% endif %}
     </div>
 
