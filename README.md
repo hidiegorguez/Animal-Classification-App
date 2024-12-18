@@ -16,7 +16,7 @@ This project aims to develop an application that can accurately identify the ani
 ## Project Structure
 
 - **animal_classification.ipynb**: The main Jupyter notebook containing the ML pipeline from data processing to model training and evaluation.
-- **app_flask.py**: A Flask application script to deploy the model as a web service, allowing users to upload images and receive classifications.
+- **app.py**: A Flask application script to deploy the model as a web service, allowing users to upload images and receive classifications.
 
 ## Getting Started
 
