@@ -8,22 +8,20 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from flask import Flask, request, render_template, url_for, send_from_directory
 
-# Configuración de Flask
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'upload/'
 PICKLE_FOLDER = 'pickle_files/'
 MODEL_FOLDER  = 'model/'
-MODEL_NAME = 'model.h5'
+MODEL_NAME = 'model_tf'
+IMG_WIDTH = 224
+IMG_HEIGHT = 224
 
-# Cargar modelo y mapeo
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'upload/'
+
 model = tf.keras.models.load_model(MODEL_FOLDER + MODEL_NAME, custom_objects={'KerasLayer': hub.KerasLayer})
-IMG_WIDTH = 80
-IMG_HEIGHT = 80
 
 with open(PICKLE_FOLDER + 'diego_mapeo.pkl', 'rb') as f:
     mapping = pickle.load(f)
 
-# Crear carpeta de uploads si no existe
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
